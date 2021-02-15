@@ -7,7 +7,7 @@ trigger:
 - azure-pipelines
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: ubuntu-latest 
 
 steps:
 - task: NodeTool@0
@@ -15,18 +15,10 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
  
-
-- task: AzurePowerShell@3
-  displayName: 'Azure PowerShell script: InlineScript'
-  inputs:
-    azureSubscription: '0be5888e-2158-4401-a1cd-f5563bda137c'
-    ScriptType: InlineScript
-    Inline: '[Environment]::SetEnvironmentVariable("NODE_OPTIONS", "--max_old_space_size=16384", "Machine")'
-    FailOnStandardError: true
-    azurePowerShellVersion: LatestVersion
     
 
-- script: |        
-    npm install
+- script: |          
+    npm install 
+    npm install -g increase-memory-limit
     npm run build
     node app.js %SERVER% %USER% %PW%
