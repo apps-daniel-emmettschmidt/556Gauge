@@ -19,7 +19,7 @@ steps:
 - task: AzurePowerShell@3
   displayName: 'Azure PowerShell script: InlineScript'
   inputs:
-    azureSubscription: 'NYCSCA Azure Dev/Test (ea91a274-55c6-461c-a11d-758ef02c2698)'
+    azureSubscription: 'Free Trial (0be5888e-2158-4401-a1cd-f5563bda137c)'
     ScriptType: InlineScript
     Inline: '[Environment]::SetEnvironmentVariable("NODE_OPTIONS", "--max_old_space_size=16384", "Machine")'
     FailOnStandardError: true
