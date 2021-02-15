@@ -1,3 +1,24 @@
+var args = process.argv.slice(2);
+
+const appfs = require('fs');
+
+if(args.length != 0 && args.length != 3){
+    throw new Error('Incorrect number of arguments, you supplied ' + args.length + 'and you should have provided 3.');
+}
+else if(args.length == 3){
+    try {
+        const serverdata = appfs.writeFileSync('.\\server.txt', args[0])
+
+        const userdata = appfs.writeFileSync('.\\user.txt', args[1])
+
+        const pwdata = appfs.writeFileSync('.\\pw.txt', args[2])
+        //file written successfully
+    } 
+    catch (err) {
+        console.error(err)
+    }
+}
+
 const ammoBuy = require("./Scrapes/ammobuy.js");
 
 const sqlMethods = require("./SQL_Methods/sql_methods.js");
@@ -57,7 +78,8 @@ async function checkTime() {
 
 async function main() {
     while (run == true) {
-        if (await checkTime() == true) {
+        if (true){
+        //await checkTime() == true) {
             ammoBuy.scrapeAmmoBuy(log);
         }
 
