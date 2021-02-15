@@ -16,9 +16,11 @@ var sqlUser = '';
 
 var sqlPW = '';
 
+console.log('About to enter procarguments block for sql, found ' + procargs.length + ' arguments.');
+
 try{
     if(procargs.length == 3){
-        console.log('Landed in procarguments block for sql, found ' + procargs[0] + 'for server name');
+        console.log('Landed in procarguments block for sql, found ' + procargs[0] + 'for server name.');
 
         sqlServer = procargs[0];
 
