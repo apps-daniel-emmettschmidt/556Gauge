@@ -3,17 +3,11 @@
   "version": "0.0.0",
   "description": "A project tracking 556 ammo prices during the Biden administration",
   "main": "app.js",
-  "scripts": {
-    "build": "webpack"
-  },
   "author": {
     "name": "Daniel Schmit"
   },
   "dependencies": {
     "puppeteer": "^5.5.0",
     "tedious": "^11.0.3"
-  },
-  "devDependencies": {
-    "webpack": "^3.8.1"
   }
 }
