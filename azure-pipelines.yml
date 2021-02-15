@@ -7,7 +7,7 @@ trigger:
 - azure-pipelines
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: ubuntu-default
 
 steps:
 - task: NodeTool@0
