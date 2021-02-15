@@ -6,6 +6,8 @@ var Request = require('tedious').Request
 
 var TYPES = require('tedious').TYPES;  
 
+console.log('About to try file reads');
+
 var sqlServer = fs.readFileSync('.\\server.txt').toString();
 
 var sqlUser = fs.readFileSync('.\\user.txt').toString();
@@ -42,8 +44,6 @@ function sleep(s, random) {
 
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-
 
 class SQLInsert {
     constructor(datum, queryType) {

@@ -7,6 +7,9 @@
   "author": {
     "name": "Daniel Schmit"
   },
+
+  "scripts": {},
+
   "dependencies": {
     "puppeteer": "^5.5.0",
     "tedious": "^11.0.3"

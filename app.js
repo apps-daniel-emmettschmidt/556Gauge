@@ -1,5 +1,7 @@
 var args = process.argv.slice(2);
 
+console.log('Began app');
+
 const appfs = require('fs');
 
 if(args.length != 0 && args.length != 3){
