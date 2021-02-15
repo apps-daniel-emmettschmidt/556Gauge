@@ -18,6 +18,6 @@ steps:
 - script: |          
     npm install 
     npm install -g increase-memory-limit
-    npm run fix-memory-limit
+    node --max-old-space-size=1024 app.js
     npm run build
     node app.js %SERVER% %USER% %PW%
