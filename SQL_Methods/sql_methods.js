@@ -8,11 +8,37 @@ var TYPES = require('tedious').TYPES;
 
 console.log('About to try file reads');
 
-var sqlServer = fs.readFileSync('.\\server.txt').toString();
+var procargs = process.argv.slice(2);
 
-var sqlUser = fs.readFileSync('.\\user.txt').toString();
+var sqlServer = '';
 
-var sqlPW = fs.readFileSync('.\\pw.txt').toString();
+var sqlUser = '';
+
+var sqlPW = '';
+
+try{
+    if(procargs.length == 3){
+        console.log('Landed in procarguments block for sql, found ' + procargs[0] + 'for server name');
+
+        sqlServer = procargs[0];
+
+        sqlUser = procargs[1];
+        
+        sqlPW = procargs[2];
+    }
+    else{
+        sqlServer = fs.readFileSync('.\\server.txt').toString();
+
+        sqlUser = fs.readFileSync('.\\user.txt').toString();
+        
+        sqlPW = fs.readFileSync('.\\pw.txt').toString();
+    }
+}
+catch(error){
+    console.log(error);
+
+  //  console.log(process.env.argv.slice(2)[0]);
+}
 
 var sqlConfig = {
     server: sqlServer,  //update me
