@@ -20,9 +20,6 @@ steps:
     
 
 - script: |        
-    echo "%SERVER%" > "server.txt"
-    echo "%USER%" > "user.txt"
-    echo "%PW%" > "pw.txt"
     npm install
     npm run build
     node app.js
