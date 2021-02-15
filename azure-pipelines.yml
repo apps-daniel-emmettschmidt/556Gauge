@@ -7,7 +7,7 @@ trigger:
 - azure-pipelines
 
 pool:
-  vmImage: ubuntu-default
+  vmImage: ubuntu-default 
 
 steps:
 - task: NodeTool@0
@@ -17,7 +17,7 @@ steps:
  
     
 
-- script: |        
+- script: |          
     npm install 
     npm install -g increase-memory-limit
     npm run build
