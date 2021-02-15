@@ -25,4 +25,9 @@ steps:
     echo "%PW%" > "pw.txt"
     npm install
     npm run build
-    node app.js
+    npm test
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
+  displayName: 'npm install and build'
