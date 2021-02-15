@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- main
+- azure-pipelines
 
 pool:
   vmImage: ubuntu-default
@@ -18,4 +18,9 @@ steps:
 - script: |
     npm install
     npm run build
+    npm test
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/TEST-*.xml'
   displayName: 'npm install and build'
