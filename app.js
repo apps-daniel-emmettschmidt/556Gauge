@@ -48,7 +48,7 @@ async function checkTime() {
     }
 
     if (minutes != 1) {
-        await methods.sleep(methods.minutesToSeconds(61 - minutes));
+        //await methods.sleep(methods.minutesToSeconds(61 - minutes));
     }
 
     //Check the hour
@@ -66,13 +66,8 @@ async function checkTime() {
 // Main method
 
 async function main() {
-    while (run == true) {
-        //if (true){
-        if (await checkTime() == true) {
-            ammoBuy.scrapeAmmoBuy(log);
-        }
-
-        await methods.sleep(3600);
+    if (await checkTime() == true) {
+        ammoBuy.scrapeAmmoBuy(log);
     }
 }
 
