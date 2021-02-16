@@ -16,6 +16,10 @@ var sqlUser = '';
 
 var sqlPW = '';
 
+var queriesCompleted = 0;
+
+module.exports.queriesCompleted = queriesCompleted;
+
 console.log('About to enter procarguments block for sql, found ' + procargs.length + ' arguments.');
 
 try{
@@ -105,6 +109,7 @@ function sqlLogger(log) {
 }
 
 function executeStatement(connection) {
+
     var request = {};
 
     if (connection.queryType == 'price') {
@@ -112,6 +117,8 @@ function executeStatement(connection) {
             if (err) {
                 sqlLogger(err);
             }
+            queriesCompleted++;
+            module.exports.queriesCompleted = queriesCompleted;
         });
 
         request.addParameter('isPPR', TYPES.Bit, connection.datum.isPPR);

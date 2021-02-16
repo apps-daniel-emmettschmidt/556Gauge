@@ -20,18 +20,31 @@ const fs = require('fs');
 
 const log = true;
 
-var run = true;
+var scrapesCompleted = 0;
 
 // Listeners
 
 ammoBuy.aBEmitter.on('scrapeComplete', function (results) {
-
     for (i = 0; i < results.length; i++) {
         var insert = new sqlMethods.SQLInsert(results[i], 'price');
 
         insert.go();
     }  
+
+    evaluateEnd();
 });
+
+async function evaluateEnd(){
+    while(ammoBuy.totalQueries == -1 || sqlMethods.queriesCompleted < ammoBuy.totalQueries){
+        await methods.sleep(2);
+    }
+
+    scrapesCompleted++;
+
+    if(scrapesCompleted == ammoBuy.totalScrapes){
+        process.exit();
+    }
+}
 
 // Checks
 
@@ -60,26 +73,25 @@ async function checkTime() {
         return true;
     }
 
-    return false;
+    return true;
 }
 
 // Main method
 
 async function main() {
-    while (run == true) {
-        if (true){
-        //await checkTime() == true) {
-            ammoBuy.scrapeAmmoBuy(log);
-        }
-
-        await methods.sleep(3600);
+    if (await checkTime() == true) {
+        var ret = await ammoBuy.scrapeAmmoBuy(log);
     }
+
+    return ret;
 }
 
 // Program
 
 try {
-    main();
+    var pause = main();
+
+    pause.then((report) => {console.log(report)});
 }
 catch (err) {
     methods.logger(err.message);
