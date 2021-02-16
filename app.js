@@ -67,8 +67,8 @@ async function checkTime() {
 
 async function main() {
     while (run == true) {
-        //if (true){
-        if (await checkTime() == true) {
+        if (true){
+        //await checkTime() == true) {
             ammoBuy.scrapeAmmoBuy(log);
         }
 
