@@ -17,11 +17,6 @@ schedules:
   branches: 
     include:
     - azure-pipelines
-- cron: "55 0 * * *"
-  displayName: Daily 2200
-  branches: 
-    include:
-    - azure-pipelines
 
 pool:
   vmImage: ubuntu-latest 
