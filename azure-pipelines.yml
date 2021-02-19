@@ -7,7 +7,7 @@ trigger:
 - azure-pipelines
 
 schedules:
-- cron: "55 9 * * *"
+- cron: "55 15 * * *"
   displayName: Daily 1000
   branches: 
     include:
