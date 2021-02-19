@@ -6,6 +6,13 @@
 trigger:
 - azure-pipelines
 
+schedules:
+- cron: "55 9 * * *"
+  displayName: Daily 1000
+  branches: 
+    include:
+    - azure-pipelines
+
 pool:
   vmImage: ubuntu-latest 
 
