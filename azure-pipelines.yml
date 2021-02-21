@@ -12,16 +12,21 @@ schedules:
   branches: 
     include:
     - azure-pipelines
+  always: true
+
 - cron: "55 20 * * *"
   displayName: Daily 1600
   branches: 
     include:
     - azure-pipelines
+  always: true
+
 - cron: "55 2 * * *"
   displayName: Daily 2200
   branches: 
     include:
     - azure-pipelines
+  always: true
 
 pool:
   vmImage: ubuntu-latest 

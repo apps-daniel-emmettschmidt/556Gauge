@@ -64,25 +64,16 @@ async function checkTime() {
         await methods.sleep(methods.minutesToSeconds(61 - minutes));
     }
 
-    //Check the hour
-    var hour = new Date(Date.now());
-
-    hour = hour.getHours();   // targeting 10 am, 2pm, and 10 pm
-
-    if (hour == 10 || hour == 14 || hour == 22) {
-        return true;
-    }
-
-    return true;
+    return;
 }
 
 // Main method
 
 async function main() {
-    if (await checkTime() == true) {
-        var ret = await ammoBuy.scrapeAmmoBuy(log);
-    }
+    await checkTime() == true;
 
+    var ret = await ammoBuy.scrapeAmmoBuy(log);
+    
     return ret;
 }
 
