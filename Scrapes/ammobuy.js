@@ -4,13 +4,11 @@ const methods = require("./../methods.js");
 
 const puppeteer = require('puppeteer');
 
-const readline = require('readline');
-
 const events = require("events");
 
 // Globals
 
-var completed = 0;
+var totalQueries = 0;
 
 const aBEmitter = new events.EventEmitter();
 
@@ -41,6 +39,10 @@ function sleep(s, random) {
 
 // Scrape Methods
 
+var totalQueries = -1;
+
+module.exports.totalQueries = totalQueries;
+
 async function getScrapes(urls, log) {
 
     var i;
@@ -54,39 +56,14 @@ async function getScrapes(urls, log) {
         results.push('Incomplete');
 
         try {
-            results[i] = scrape(url, i, log);
-
+            results[i] = await scrape(url, i, log);
+            
             sleep(1, true);
         }
         catch (err) {
             if (log == true) {
                 methods.logger(err.message);
             }
-        }
-
-    }
-
-    while (completed < results.length) {
-
-        if (log == true) {
-            var now = new Date(Date.now());
-            methods.logger('Waiting on scrapes, ' + completed + ' scrapes complete.');
-        }
-
-        await sleep(2, false);
-
-    }
-
-    if (log == true) {
-        for (i = 0; i < results.length; i++) {
-            results[i].then((value) => {
-
-                for (i = 0; i < value.length; i++) {
-                    methods.logger('Scrape complete: ' + value[i].reportString)
-                }
-
-
-            })
         }
     }
 
@@ -137,8 +114,14 @@ async function scrape(url, scrapeID, log) {
 
         for (i = 0; i < results.length; i++) { results[i].scrapeURL = url; results[i].reportString += (' ' + url); }
 
-        completed++;
+        if(totalQueries = -1){
+            totalQueries = results.length;
+        }
+        else{
+            totalQueries += results.length;
+        }
 
+        module.exports.totalQueries = totalQueries;
     }
     catch (err) {
         if (log == true) {
@@ -153,8 +136,6 @@ async function scrape(url, scrapeID, log) {
                 ret = -1;
             }
 
-            completed++;
-
             const badret = [];
 
             badret.hasError = true;
@@ -165,7 +146,7 @@ async function scrape(url, scrapeID, log) {
 
     aBEmitter.emit('scrapeComplete', results);
 
-    return results;
+    return results.length;
 }
 
 function shuffleArray(oldarr) {
@@ -221,8 +202,14 @@ const urls = [
       'https://www.ammobuy.com/ammo/556-nato'
 ];
 
+const totalScrapes = urls.length;
+
+module.exports.totalScrapes = totalScrapes;
+
 async function scrapeAmmoBuy (log) {
-    primary(shuffleArray(urls), log);
+    await primary(shuffleArray(urls), log);
+
+    return "Scrapes complete.";
 };
 
 module.exports.scrapeAmmoBuy = scrapeAmmoBuy;

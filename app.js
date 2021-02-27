@@ -1,3 +1,13 @@
+var args = process.argv.slice(2);
+
+console.log('Began app');
+
+const appfs = require('fs');
+
+if(args.length > 0 && args.length != 3){
+    throw new Error('Incorrect number of arguments, you supplied ' + args.length + 'and you should have provided 3.');
+}
+
 const ammoBuy = require("./Scrapes/ammobuy.js");
 
 const sqlMethods = require("./SQL_Methods/sql_methods.js");
@@ -10,18 +20,31 @@ const fs = require('fs');
 
 const log = true;
 
-var run = true;
+var scrapesCompleted = 0;
 
 // Listeners
 
 ammoBuy.aBEmitter.on('scrapeComplete', function (results) {
-
     for (i = 0; i < results.length; i++) {
         var insert = new sqlMethods.SQLInsert(results[i], 'price');
 
         insert.go();
     }  
+
+    evaluateEnd();
 });
+
+async function evaluateEnd(){
+    while(ammoBuy.totalQueries == -1 || sqlMethods.queriesCompleted < ammoBuy.totalQueries){
+        await methods.sleep(2);
+    }
+
+    scrapesCompleted++;
+
+    if(scrapesCompleted == ammoBuy.totalScrapes){
+        process.exit();
+    }
+}
 
 // Checks
 
@@ -41,34 +64,25 @@ async function checkTime() {
         await methods.sleep(methods.minutesToSeconds(61 - minutes));
     }
 
-    //Check the hour
-    var hour = new Date(Date.now());
-
-    hour = hour.getHours();   // targeting 10 am, 2pm, and 10 pm
-
-    if (hour == 10 || hour == 14 || hour == 22) {
-        return true;
-    }
-
-    return false;
+    return;
 }
 
 // Main method
 
 async function main() {
-    while (run == true) {
-        if (await checkTime() == true) {
-            ammoBuy.scrapeAmmoBuy(log);
-        }
+    await checkTime() == true;
 
-        await methods.sleep(3600);
-    }
+    var ret = await ammoBuy.scrapeAmmoBuy(log);
+    
+    return ret;
 }
 
 // Program
 
 try {
-    main();
+    var pause = main();
+
+    pause.then((report) => {console.log(report)});
 }
 catch (err) {
     methods.logger(err.message);
