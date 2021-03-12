@@ -4,28 +4,28 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- azure-pipelines
+- pipeline
 
 schedules:
 - cron: "55 14 * * *"
   displayName: Daily 1000
   branches: 
     include:
-    - azure-pipelines
+    - pipeline
   always: true
 
 - cron: "55 20 * * *"
   displayName: Daily 1600
   branches: 
     include:
-    - azure-pipelines
+    - pipeline
   always: true
 
 - cron: "55 2 * * *"
   displayName: Daily 2200
   branches: 
     include:
-    - azure-pipelines
+    - pipeline
   always: true
 
 pool:
