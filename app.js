@@ -70,7 +70,7 @@ async function checkTime() {
 // Main method
 
 async function main() {
-    await checkTime() == true;
+    // await checkTime();
 
     var ret = await ammoBuy.scrapeAmmoBuy(log);
     
