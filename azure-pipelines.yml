@@ -6,6 +6,7 @@
 trigger:
 - pipeline
 
+
 schedules:
 - cron: "55 14 * * *"
   displayName: Daily 1000
