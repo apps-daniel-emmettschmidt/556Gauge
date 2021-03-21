@@ -41,4 +41,4 @@ steps:
     npm install 
     npm install -g increase-memory-limit
     npm run build
-    node app.js $(SERVER) $(USER) $(PW)
+    node app.js $(server) $(user) $(pw) 
